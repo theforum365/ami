@@ -1,0 +1,71 @@
+{
+  "builds": [
+    {
+      "name": "forum-arm64",
+      "builder_type": "amazon-ebs",
+      "build_time": 1606181626,
+      "files": null,
+      "artifact_id": "eu-west-1:ami-06e2d703d55395fab",
+      "packer_run_uuid": "4759fa0c-c5a1-ac38-5923-97a317d616f2",
+      "custom_data": {
+        "identifier": "theforum365-arm64"
+      }
+    },
+    {
+      "name": "forum-arm64",
+      "builder_type": "amazon-ebs",
+      "build_time": 1606184481,
+      "files": null,
+      "artifact_id": "eu-west-1:ami-09aff3ffca2650ee2",
+      "packer_run_uuid": "23bbf1d9-8832-f8dd-da9d-b97ea5c6e9c4",
+      "custom_data": {
+        "identifier": "theforum365-arm64"
+      }
+    },
+    {
+      "name": "forum-arm64",
+      "builder_type": "amazon-ebs",
+      "build_time": 1606197470,
+      "files": null,
+      "artifact_id": "eu-west-1:ami-0eb34295b3a0311c9",
+      "packer_run_uuid": "b1b618e8-60d5-6876-aeb8-a0e9705b98f1",
+      "custom_data": {
+        "identifier": "theforum365-arm64"
+      }
+    },
+    {
+      "name": "forum-arm64",
+      "builder_type": "amazon-ebs",
+      "build_time": 1606198555,
+      "files": null,
+      "artifact_id": "eu-west-1:ami-02a541893cb55c551",
+      "packer_run_uuid": "5a63f9e5-baeb-d34e-3afa-c7ec2e65933c",
+      "custom_data": {
+        "identifier": "theforum365-arm64"
+      }
+    },
+    {
+      "name": "forum-arm64",
+      "builder_type": "amazon-ebs",
+      "build_time": 1606204956,
+      "files": null,
+      "artifact_id": "eu-west-1:ami-07e6bf1a92d0c988a",
+      "packer_run_uuid": "65776d1b-ebcc-2a4f-451b-88decc4156ee",
+      "custom_data": {
+        "identifier": "theforum365-arm64"
+      }
+    },
+    {
+      "name": "forum-arm64",
+      "builder_type": "amazon-ebs",
+      "build_time": 1606206297,
+      "files": null,
+      "artifact_id": "eu-west-1:ami-0631ec52ec86831cb",
+      "packer_run_uuid": "3e876028-f0db-e25b-46ea-c4ac459587e5",
+      "custom_data": {
+        "identifier": "theforum365-arm64"
+      }
+    }
+  ],
+  "last_run_uuid": "3e876028-f0db-e25b-46ea-c4ac459587e5"
+}

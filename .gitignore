@@ -6,3 +6,9 @@ crash.log
 
 # For built boxes
 *.box
+
+# Local
+**/.idea
+
+# npm
+**/node_modules

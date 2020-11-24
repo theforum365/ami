@@ -1,0 +1,22 @@
+{
+  "name": "ami",
+  "version": "1.0.0",
+  "description": "The AMI for theforum365.com",
+  "main": "packer.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/theforum365/ami.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/theforum365/ami/issues"
+  },
+  "homepage": "https://github.com/theforum365/ami#readme",
+  "dependencies": {
+    "@jkcfg/std": "^0.4.0"
+  }
+}
