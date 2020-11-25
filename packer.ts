@@ -64,7 +64,7 @@ const packerConfig = {
     }],
     'post-processors': [
         {
-            "identifier": "forum-ami",
+            "identifier": "theforum365-arm64",
             "keep_releases": "3",
             "type": "amazon-ami-management",
             regions: ["eu-west-1"]
