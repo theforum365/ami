@@ -1,7 +1,7 @@
-name: Nightly AMI Build
+name: Master AMI Build
 on:
-  schedule:
-    - cron: '* 2 * * *'
+  push:
+    branches: [ 'master' ]
 
 jobs:
   ami:
