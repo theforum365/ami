@@ -109,7 +109,62 @@
       "custom_data": {
         "identifier": "theforum365-arm64"
       }
+    },
+    {
+      "name": "forum-arm64",
+      "builder_type": "amazon-ebs",
+      "build_time": 1606329921,
+      "files": null,
+      "artifact_id": "eu-west-1:ami-04fa5aed89c0984ea",
+      "packer_run_uuid": "1fc86a7a-05bc-44b3-cef3-36e9b316e2f5",
+      "custom_data": {
+        "identifier": "theforum365-arm64"
+      }
+    },
+    {
+      "name": "forum-arm64",
+      "builder_type": "amazon-ebs",
+      "build_time": 1606332756,
+      "files": null,
+      "artifact_id": "eu-west-1:ami-0457f2b8bfc1c1a5f",
+      "packer_run_uuid": "e369cd89-f807-6bc5-23bb-d95dd7a99921",
+      "custom_data": {
+        "identifier": "theforum365-arm64"
+      }
+    },
+    {
+      "name": "forum-arm64",
+      "builder_type": "amazon-ebs",
+      "build_time": 1606353602,
+      "files": null,
+      "artifact_id": "eu-west-1:ami-0700ba7ae3a161ff4",
+      "packer_run_uuid": "c4b93646-7c11-65c6-e770-3e7cae84d7f0",
+      "custom_data": {
+        "identifier": "theforum365-arm64"
+      }
+    },
+    {
+      "name": "forum-arm64",
+      "builder_type": "amazon-ebs",
+      "build_time": 1606373953,
+      "files": null,
+      "artifact_id": "eu-west-1:ami-0e5afb24ec65bbdbe",
+      "packer_run_uuid": "ab6a0c18-d367-e797-05d8-121a35a32baa",
+      "custom_data": {
+        "identifier": "theforum365-arm64"
+      }
+    },
+    {
+      "name": "forum-arm64",
+      "builder_type": "amazon-ebs",
+      "build_time": 1606418098,
+      "files": null,
+      "artifact_id": "eu-west-1:ami-0b78c42a638afa691",
+      "packer_run_uuid": "8c4eb9ca-4188-78e1-b547-88c1ed140ae6",
+      "custom_data": {
+        "identifier": "theforum365-arm64"
+      }
     }
   ],
-  "last_run_uuid": "5fd43acd-4470-ed35-b36f-46952049551f"
+  "last_run_uuid": "8c4eb9ca-4188-78e1-b547-88c1ed140ae6"
 }

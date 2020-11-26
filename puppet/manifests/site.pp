@@ -9,6 +9,11 @@ class { 'nginx':
   ,
 
 }
+-> file { ['/srv/http/', '/srv/http/theforum365.com', '/srv/http/theforum365.com/root', '/srv/http/theforum365.com/root/html' ]:
+  ensure => 'directory',
+  group  => 'nginx',
+  owner  => 'nginx',
+}
 -> class { 'php':
   ensure       => 'present',
   manage_repos => false,
@@ -23,6 +28,7 @@ class { 'nginx':
     gd       => {},
     mbstring => {},
     mysqlnd  => {},
+    redis    => {},
   },
   fpm_pools    => {
     'www' => {
@@ -36,8 +42,7 @@ class { 'nginx':
         display_errors => 'off'
       },
       php_admin_value => {
-        log_errors          => 'off',
-        error_log           => '/srv/http/theforum365.com/root/logs/php_error.log',
+        log_errors          => 'on',
         upload_max_filesize => '100M',
         post_max_size       => '100M',
         memory_limit        => '512M',
@@ -62,7 +67,7 @@ nginx::resource::upstream { 'php-backend':
 nginx::resource::server { 'theforum365':
   use_default_location => false,
   listen_port          => 80,
-  server_name          => ['theforum365.com',  'www.theforum365.com'],
+  server_name          => ['theforum365.com',  'www.theforum365.com', 'test.theforum365.com' ],
   www_root             => '/srv/http/theforum365.com/root/html',
   index_files          => [ 'index.php' ],
   client_max_body_size => '100M',
@@ -100,14 +105,29 @@ nginx::resource::location { 'php':
   }
 }
 
+nginx::resource::location { 'ips':
+  server              => 'theforum365',
+  location            => '@ips',
+  include             => [ '/etc/nginx/fastcgi_params' ],
+  fastcgi             => 'unix:/var/run/php-fpm_webapp.sock',
+  fastcgi_param       => {
+    'SCRIPT_FILENAME' => '$document_root/index.php',
+    'SCRIPT_NAME'     => '/index.php',
+  },
+  location_custom_cfg => {
+    'fastcgi_buffers'     => '38 4k',
+    'fastcgi_buffer_size' => '16k',
+  }
+}
+
 nginx::resource::location { '404':
   server              => 'theforum365',
   location            => '@ips404',
   include             => [ '/etc/nginx/fastcgi_params' ],
   fastcgi             => 'unix:/var/run/php-fpm_webapp.sock',
   fastcgi_param       => {
-    'SCRIPT_FILENAME' => '$document_root/index.php',
-    'SCRIPT_NAME'     => '/index.php',
+    'SCRIPT_FILENAME' => '$document_root/404error.php',
+    'SCRIPT_NAME'     => '404error.php',
   },
   location_custom_cfg => {
     'fastcgi_buffers'     => '38 4k',

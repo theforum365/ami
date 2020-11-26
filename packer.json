@@ -13,6 +13,11 @@
       "ami_name": "forum-arm64-{{isotime | clean_resource_name}}-arm64",
       "ami_users": "791046510159",
       "associate_public_ip_address": "{{user `associate_public_ip_address`}}",
+      "assume_role": {
+        "external_id": "github-actions",
+        "role_arn": "arn:aws:iam::791046510159:role/ContinuousDelivery",
+        "session_name": "packer"
+      },
       "availability_zone": "eu-west-1a",
       "instance_type": "t4g.micro",
       "name": "forum-arm64",

@@ -1,0 +1,46 @@
+name: Nightly AMI Build
+on:
+  schedule:
+    - cron: '*/5 2 * * *'
+
+jobs:
+  ami:
+    name: Build AMI
+    runs-on: 'ubuntu-latest',
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+          role-to-assume: ContinuousDelivery
+          role-external-id: ${{ secrets.EXTERNAL_ID }}
+          role-duration-seconds: 900
+      - name: Install jkcfg
+        run: |
+          curl https://github.com/jkcfg/jk/releases/download/0.4.0/jk-linux-amd64 -o /usr/local/bin/jk
+      - name: Install Packer
+        run: |
+          curl https://releases.hashicorp.com/packer/1.6.5/packer_1.6.5_linux_amd64.zip -o /tmp/packer_1.6.5_linux_amd64.zip
+          unzip -d /usr/local/bin/ /tmp/packer_1.6.5_linux_amd64.zip
+      - name: Update PATH
+        run: |
+          echo "/usr/local/bin" >> $GITHUB_PATH
+      - name: Setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14'
+      - name: Generate Packer config
+        run: |
+          make dist
+      - name: Build AMI
+        run: |
+          make build
+        
+
+
+
+

@@ -47,7 +47,12 @@ const packerConfig = {
             Created_On: '{{isotime|clean_resource_name}}',
             Timestamp: '{{timestamp}}',
             "Amazon_AMI_Management_Identifier": "theforum365-arm64",
-        }
+        },
+        assume_role: {
+            "role_arn": "arn:aws:iam::791046510159:role/ContinuousDelivery",
+            "session_name": "packer",
+            "external_id": "github-actions",
+        },
 
     }],
     provisioners: [{
@@ -56,12 +61,14 @@ const packerConfig = {
           "scripts/bootstrap.sh",
           "scripts/install_puppet.sh"
         ],
-    }, {
+    },
+        {
         type: "puppet-masterless",
         manifest_file: "./puppet/manifests/site.pp",
         module_paths: "./puppet/modules",
         puppet_bin_dir: "/opt/puppetlabs/bin",
-    }],
+        }
+    ],
     'post-processors': [
         {
             "identifier": "theforum365-arm64",

@@ -12,3 +12,6 @@ crash.log
 
 # npm
 **/node_modules
+
+# ensure we don't upload the software
+software/
