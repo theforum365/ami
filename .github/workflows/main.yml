@@ -30,6 +30,10 @@ jobs:
         run: |
           curl https://releases.hashicorp.com/packer/1.6.5/packer_1.6.5_linux_amd64.zip -o /tmp/packer_1.6.5_linux_amd64.zip
           unzip -d $HOME/.local/bin/ /tmp/packer_1.6.5_linux_amd64.zip
+      - name: Install Packer Post Processor Plugin
+        run: |
+          curl -L https://github.com/wata727/packer-post-processor-amazon-ami-management/releases/download/v0.9.0/packer-post-processor-amazon-ami-management_0.9.0_linux_amd64.zip -o /tmp/packer-post-processor-amazon-ami-management_0.9.0_linux_amd64.zip
+          unzip -j -d $HOME/.local/bin/ /tmp/packer-post-processor-amazon-ami-management_0.9.0_linux_amd64.zip
       - name: Update PATH
         run: |
           echo "$HOME/.local/bin" >> $GITHUB_PATH
