@@ -4,9 +4,11 @@ class { 'nginx':
   gzip_comp_level => 6,
   gzip_buffers    => '16 8k',
   package_name    => 'nginx', # installed by the script
+  log_format      => {
+    proxy => '$http_x_forwarded_for - [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent"'
+  },
   gzip_types      =>
-    'text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript'
-  ,
+    'text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript',
 
 }
 -> file { ['/srv/http/', '/srv/http/theforum365.com', '/srv/http/theforum365.com/root', '/srv/http/theforum365.com/root/html' ]:
@@ -71,6 +73,8 @@ nginx::resource::server { 'theforum365':
   www_root             => '/srv/http/theforum365.com/root/html',
   index_files          => [ 'index.php' ],
   client_max_body_size => '100M',
+  access_log           => '/var/log/nginx/theforum365.access.log',
+  format_log           => 'proxy',
 }
 
 nginx::resource::location { '/':
@@ -168,4 +172,15 @@ nginx::resource::location { 'dotfiles':
   server        => 'theforum365',
   location      => '~ /\.',
   location_deny => [ all ],
+}
+
+
+include ::logrotate
+
+logrotate::rule { 'nginx':
+  path          => '/var/log/nginx/*.log',
+  rotate        => 5,
+  size          => '500k',
+  sharedscripts => true,
+  postrotate    => '[ ! -f /var/run/nginx.pid ] || kill -USR1 $(cat /var/run/nginx.pid)',
 }

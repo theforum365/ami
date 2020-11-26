@@ -175,7 +175,18 @@
       "custom_data": {
         "identifier": "theforum365-arm64"
       }
+    },
+    {
+      "name": "forum-arm64",
+      "builder_type": "amazon-ebs",
+      "build_time": 1606429123,
+      "files": null,
+      "artifact_id": "eu-west-1:ami-06ad82646c9239ffc",
+      "packer_run_uuid": "56f29e81-d894-d16b-f514-bf64e39ac602",
+      "custom_data": {
+        "identifier": "theforum365-arm64"
+      }
     }
   ],
-  "last_run_uuid": "a81e8782-03cc-7aaf-4e37-5b4c4ac5ea6f"
+  "last_run_uuid": "56f29e81-d894-d16b-f514-bf64e39ac602"
 }
