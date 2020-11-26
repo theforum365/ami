@@ -24,7 +24,7 @@ jobs:
           mkdir -p $HOME/.local/bin
       - name: Install jkcfg
         run: |
-          curl https://github.com/jkcfg/jk/releases/download/0.4.0/jk-linux-amd64 -o $HOME/.local/bin/jk
+          curl -L https://github.com/jkcfg/jk/releases/download/0.4.0/jk-linux-amd64 -o $HOME/.local/bin/jk
           chmod +x $HOME/.local/bin/jk
       - name: Install Packer
         run: |
