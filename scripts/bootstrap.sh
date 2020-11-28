@@ -2,6 +2,7 @@
 
 sudo amazon-linux-extras install nginx1
 sudo amazon-linux-extras enable php7.4
+sudo amazon-linux-extras install epel -y
 
 sudo yum update -y
 
