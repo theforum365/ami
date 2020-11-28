@@ -1,5 +1,7 @@
 import * as param from '@jkcfg/std/param';
 
+const role = param.String('role', "web")
+
 const packerConfig = {
     min_packer_version: "1.5.6",
     variables: {
@@ -7,10 +9,11 @@ const packerConfig = {
         associate_public_ip_address: "true",
         ami_filter_name: "",
         ebs_volume_size: "8",
+        role: ""
     },
     builders: [{
-        name: "forum-arm64",
-        ami_name: "forum-arm64-{{isotime | clean_resource_name}}-arm64",
+        name: `forum-${role}-arm64`,
+        ami_name: `forum-${role}-arm64-{{isotime | clean_resource_name}}-arm64`,
         ami_description: "Amazon Linux Instance with Forum Software Installed",
         instance_type: "t4g.micro",
         ami_users: "791046510159",
@@ -40,13 +43,14 @@ const packerConfig = {
         ],
         ssh_username: "ec2-user",
         tags: {
-            Name: "theforum365-arm64-{{isotime | clean_resource_name}}",
+            Name: `theforum365-${role}-arm64-{{isotime | clean_resource_name}}`,
             OS_Version: 'amzn-2-arm64',
             Created_Using: 'packer',
             Build_ID: '{{user `build_id` }}',
             Created_On: '{{isotime|clean_resource_name}}',
             Timestamp: '{{timestamp}}',
-            "Amazon_AMI_Management_Identifier": "theforum365-arm64",
+            Role: role,
+            "Amazon_AMI_Management_Identifier": `theforum365-${role}-arm64`,
         },
         assume_role: {
             "role_arn": "arn:aws:iam::791046510159:role/ContinuousDelivery",
@@ -61,31 +65,32 @@ const packerConfig = {
           "scripts/bootstrap.sh",
           "scripts/install_puppet.sh"
         ],
-    },
-        {
+    }, {
+        type: "shell",
+        scripts: [
+            `scripts/bootstrap_${role}.sh`,
+        ]
+    },{
         type: "puppet-masterless",
         manifest_file: "./puppet/manifests/site.pp",
-        module_paths: "./puppet/modules",
+        module_paths: [ "./puppet/modules", "./puppet/mod" ],
         puppet_bin_dir: "/opt/puppetlabs/bin",
+        facter: {
+            role: "web",
         }
-    ],
+    }],
     'post-processors': [
         {
-            "identifier": "theforum365-arm64",
+            "identifier": `theforum365-${role}-arm64`,
             "keep_releases": "3",
             "type": "amazon-ami-management",
             regions: ["eu-west-1"]
-        }, {
-            "custom_data": {
-                "identifier": "theforum365-arm64",
-            },
-            "type": "manifest"
         }
     ],
 
 }
 
 export default [
-    {value: packerConfig, file: `packer.json`},
+    {value: packerConfig, file: `packer-${role}.json`},
 ]
 

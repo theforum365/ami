@@ -10,7 +10,7 @@
         }
       ],
       "ami_description": "Amazon Linux Instance with Forum Software Installed",
-      "ami_name": "forum-arm64-{{isotime | clean_resource_name}}-arm64",
+      "ami_name": "forum-web-arm64-{{isotime | clean_resource_name}}-arm64",
       "ami_users": "791046510159",
       "associate_public_ip_address": "{{user `associate_public_ip_address`}}",
       "assume_role": {
@@ -20,7 +20,7 @@
       },
       "availability_zone": "eu-west-1a",
       "instance_type": "t4g.micro",
-      "name": "forum-arm64",
+      "name": "forum-web-arm64",
       "region": "eu-west-1",
       "source_ami_filter": {
         "filters": {
@@ -36,12 +36,13 @@
       "ssh_username": "ec2-user",
       "subnet_id": "{{user `subnet_id`}}",
       "tags": {
-        "Amazon_AMI_Management_Identifier": "theforum365-arm64",
+        "Amazon_AMI_Management_Identifier": "theforum365-web-arm64",
         "Build_ID": "{{user `build_id` }}",
         "Created_On": "{{isotime|clean_resource_name}}",
         "Created_Using": "packer",
-        "Name": "theforum365-arm64-{{isotime | clean_resource_name}}",
+        "Name": "theforum365-web-arm64-{{isotime | clean_resource_name}}",
         "OS_Version": "amzn-2-arm64",
+        "Role": "web",
         "Timestamp": "{{timestamp}}"
       },
       "type": "amazon-ebs"
@@ -50,18 +51,12 @@
   "min_packer_version": "1.5.6",
   "post-processors": [
     {
-      "identifier": "theforum365-arm64",
+      "identifier": "theforum365-web-arm64",
       "keep_releases": "3",
       "regions": [
         "eu-west-1"
       ],
       "type": "amazon-ami-management"
-    },
-    {
-      "custom_data": {
-        "identifier": "theforum365-arm64"
-      },
-      "type": "manifest"
     }
   ],
   "provisioners": [
@@ -73,8 +68,20 @@
       "type": "shell"
     },
     {
+      "scripts": [
+        "scripts/bootstrap_web.sh"
+      ],
+      "type": "shell"
+    },
+    {
+      "facter": {
+        "role": "web"
+      },
       "manifest_file": "./puppet/manifests/site.pp",
-      "module_paths": "./puppet/modules",
+      "module_paths": [
+        "./puppet/modules",
+        "./puppet/mod"
+      ],
       "puppet_bin_dir": "/opt/puppetlabs/bin",
       "type": "puppet-masterless"
     }
@@ -83,6 +90,7 @@
     "ami_filter_name": "",
     "associate_public_ip_address": "true",
     "ebs_volume_size": "8",
+    "role": "",
     "subnet_id": ""
   }
 }
