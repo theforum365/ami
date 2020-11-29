@@ -74,8 +74,10 @@
       "type": "shell"
     },
     {
+      "extra_arguments": [],
       "facter": {
-        "role": "web"
+        "role": "web",
+        "service_provider": "systemd"
       },
       "manifest_file": "./puppet/manifests/site.pp",
       "module_paths": [

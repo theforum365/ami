@@ -1,6 +1,13 @@
 import * as param from '@jkcfg/std/param';
 
 const role = param.String('role', "web")
+const debug = param.Boolean('debug', false)
+
+let puppet_extra_args = [];
+
+if (debug) {
+    puppet_extra_args = [ '--debug', '--verbose']
+}
 
 const packerConfig = {
     min_packer_version: "1.5.6",
@@ -75,8 +82,10 @@ const packerConfig = {
         manifest_file: "./puppet/manifests/site.pp",
         module_paths: [ "./puppet/modules", "./puppet/mod" ],
         puppet_bin_dir: "/opt/puppetlabs/bin",
+        extra_arguments: puppet_extra_args,
         facter: {
             role: "web",
+            service_provider: 'systemd',
         }
     }],
     'post-processors': [
